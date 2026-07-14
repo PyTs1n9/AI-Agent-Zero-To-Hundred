@@ -24,6 +24,35 @@ AI-Agent-Zero-To-Hundred/
 │   └── tests/                # 单元测试与集成测试
 ```
 
+## 一句话到输出的执行流程
+
+```mermaid
+flowchart TD
+    A[用户输入一句话] --> B[run.py<br/>启动应用]
+    B --> C[core<br/>解析任务并编排执行]
+    C --> D[configs<br/>读取模型与运行配置]
+    C --> E[prompts<br/>组合系统提示词与任务模板]
+    C --> F[agents<br/>选择或协作专项子 Agent]
+    F --> G[skills<br/>执行可复用能力]
+    G --> H[tools<br/>调用文件、API、命令等外部工具]
+    C --> I[memory<br/>检索历史上下文]
+    I --> E
+    H --> J[data<br/>读取或保存本地数据]
+    G --> K[core<br/>汇总工具结果]
+    I --> K
+    E --> K
+    D --> K
+    K --> L[生成最终回答]
+    L --> M[输出给用户]
+
+    N[tests<br/>验证各环节是否正确] -.测试.-> C
+    N -.测试.-> F
+    N -.测试.-> G
+    N -.测试.-> H
+```
+
+执行主线：用户输入 → 核心编排 → 读取配置、提示词与记忆 → 子 Agent 调用技能和工具 → 汇总结果 → 输出回答。
+
 ## 快速开始
 
 ```bash
