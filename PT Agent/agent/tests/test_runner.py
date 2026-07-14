@@ -1,6 +1,13 @@
 from agent.core.runner import run
+from unittest.mock import patch
 
 
-def test_run_starts(capsys) -> None:
+@patch("agent.core.runner.chat", return_value="你好")
+@patch("builtins.input", side_effect=["你好", "exit"])
+@patch("agent.core.runner.get_settings")
+
+def test_run_can_chat(mock_settings, mock_input, mock_chat, capsys):
     run()
-    assert "Agent 项目已启动" in capsys.readouterr().out
+
+    output = capsys.readouterr().out
+    assert "Agent：你好" in output
