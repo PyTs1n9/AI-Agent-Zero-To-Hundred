@@ -24,6 +24,7 @@ def run() -> None:
 
         answer = chat(
             api_key=settings.api_key,      # DeepSeek 密钥
+            base_url=settings.base_url,    # DeepSeek 接口地址
             model=settings.model,          # deepseek-v4-flash
             system_prompt=SYSTEM_PROMPT,   # 给 AI 的规则
             user_message=user_message,     # 你的问题

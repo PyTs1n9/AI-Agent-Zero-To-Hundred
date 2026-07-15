@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 class Settings:
 	api_key: str
 	model: str
+	base_url: str
 
 
 def get_settings() -> Settings:
@@ -17,6 +18,7 @@ def get_settings() -> Settings:
 
 	api_key = os.getenv("OPENAI_API_KEY")
 	model = os.getenv("OPENAI_MODEL")
+	base_url = os.getenv("OPENAI_BASE_URL", "https://api.deepseek.com")
 
 	if not api_key:
 		raise ValueError("请在 .env 中设置 OPENAI_API_KEY")
@@ -26,4 +28,5 @@ def get_settings() -> Settings:
 	return Settings(
 		api_key=api_key,
 		model=model,
+		base_url=base_url,
 	)
